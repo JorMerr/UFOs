@@ -22,3 +22,27 @@ function buildTable(data) {
         );
     });
 }
+
+// Lesson 11.5.3 Add Filters
+function handleClick() {
+    // Grab the datetime value from the filter
+    let date = d3.select("#datetime").property("value");
+    let filteredData = tableData;
+    // Check to see if a date was entered and filter the
+    // data using that date.
+    if (date) {
+        // apply 'filter' to the table data to only keep the
+        // rows where the 'datetime' value matches the filter value
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+    // rebuild the table using the filtered data
+    // @NOTE: If no date was entered, then filteredData will
+    // just be the original tableData.
+    buildTable(filteredData);
+};
+
+// Create event listener for click of filter button
+d3.selectAll('#filter-btn').on('click', handleClick);
+
+// Load basic table with original data imported
+buildTable(tableData);
